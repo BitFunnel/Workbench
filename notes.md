@@ -17,3 +17,4 @@ OS name: "mac os x", version: "10.10.5", arch: "x86_64", family: "mac"
 
 Add .idea and *.iml to .gitignore
 
+java -cp target/corpus-converter-1.0-SNAPSHOT.jar org.bitfunnel.workbench.App
