@@ -30,7 +30,7 @@ public class App
     // http://www.tutorialspoint.com/lucene/lucene_standardanalyzer.htm
     private static void displayTokenUsingStandardAnalyzer() throws IOException{
         String text
-                = "hello ѐѐѐ Lucene ? \" the dog is running simple yet powerful java based search library.";
+                = "xxx hello ѐѐѐ Lucene ? \" the dog is running simple yet powerful java based search library.";
 //        Analyzer analyzer = new EnglishAnalyzer();
         Analyzer analyzer = new StandardAnalyzer();
         TokenStream tokenStream
