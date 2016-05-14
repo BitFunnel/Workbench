@@ -7,12 +7,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.bitfunnel.test.DocumentFileProcessor;
+import org.bitfunnel.test.WikipediaDumpProcessor;
 
 /*
-Is DocumentFile a good name? Seems given DocumentFileProcessor.
-  What is name of input file type? WikipediaDump?
-  What is name of output file type? BitFunnelCorpus?
+x Is DocumentFile a good name? Seems given DocumentFileProcessor.
+x   What is name of input file type? WikipediaDump?
+x   What is name of output file type? BitFunnelCorpus?
 Write out corpus file as UTF8 bytes.
 Fix package name.
 README.md
@@ -22,7 +22,7 @@ Put code into real repository.
 Sample data files.
   Perhaps public domain poems.
   Very short Wikipedia articles.
-Rename App to CorpusConverter.
+x Rename App to CorpusConverter.
 Test converting large corpus files.
 Measure conversion time.
 Print progress indicator.
@@ -34,7 +34,7 @@ Corpus statistics class
 InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
  */
 
-public class App {
+public class MakeCorpusFile {
   Path input;
   Path output;
 
@@ -43,8 +43,8 @@ public class App {
       System.out.println("Usage");
     } else {
       try {
-        App x = new App(Paths.get(args[0]), Paths.get(args[1]));
-        x.ProcessAllFiles();
+        MakeCorpusFile processor = new MakeCorpusFile(Paths.get(args[0]), Paths.get(args[1]));
+        processor.ProcessAllFiles();
       } catch (IOException e) {
         System.out.println("IOException: " + e);
       }
@@ -52,7 +52,7 @@ public class App {
   }
 
 
-  public App(Path input, Path output) {
+  public MakeCorpusFile(Path input, Path output) {
     this.input = input;
     this.output = output;
   }
@@ -64,6 +64,10 @@ public class App {
     } else if (Files.exists(output)) {
       System.out.println("Error: output location " + output.getFileName() + " already exists.");
     } else {
+      System.out.println("Making corpus file.");
+      System.out.println("Input (Wikipedia dump): " + input.toAbsolutePath());
+      System.out.println("Output (corpus file: " + output.toAbsolutePath());
+
       Files.walk(input).filter(Files::isRegularFile).forEach(this::ProcessOneFile);
     }
   }
@@ -78,18 +82,19 @@ public class App {
       System.out.println("source = " + path);
 
       System.out.println("createDirectories(" + destination.getParent() + ")");
+      Files.createDirectories(destination.getParent());
 
       System.out.println("Open file " + destination + " inside of try.");
 
 //       Files.createDirectories(output.getParent());
 //        try (OutputStream outputStream = Files.newOutputStream(output)) {
 
-      OutputStream outputStream = System.out;
+//      OutputStream outputStream = System.out;
       try (InputStream inputStream = Files.newInputStream(path);
-           /*OutputStream outputStream = System.out*/) {
-//        OutputStream outputStream = Files.newOutputStream(destination)) {
-        DocumentFileProcessor processor =
-            new DocumentFileProcessor(inputStream, outputStream);
+//           /*OutputStream outputStream = System.out*/) {
+           OutputStream outputStream = Files.newOutputStream(destination)) {
+        WikipediaDumpProcessor processor =
+            new WikipediaDumpProcessor(inputStream, outputStream);
         processor.ProcessFile();
       }
 

@@ -6,14 +6,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class DocumentFile implements Iterable<DocumentFile.Document>,
-                                     Iterator<DocumentFile.Document> {
+public class CorpusFile implements Iterable<CorpusFile.Document>,
+                                   Iterator<CorpusFile.Document> {
   InputStream inputStream;
   int currentByte;
   Document current;
 
 
-  DocumentFile(InputStream inputStream)
+  CorpusFile(InputStream inputStream)
   {
     this.inputStream = inputStream;
     currentByte = -1;

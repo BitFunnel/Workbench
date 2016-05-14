@@ -1,9 +1,6 @@
 package org.bitfunnel.test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.util.regex.Matcher;
@@ -15,13 +12,10 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 
-public class DocumentFileProcessor {
+public class WikipediaDumpProcessor {
   InputStream inputStream;
   OutputStream outputStream;
-
   Scanner scanner;
-//  OutputStream outputStream;
-
   String line;
 
   static Pattern pattern =
@@ -30,7 +24,7 @@ public class DocumentFileProcessor {
   static Analyzer analyzer = new StandardAnalyzer();
 
 
-  public DocumentFileProcessor(InputStream inputStream,
+  public WikipediaDumpProcessor(InputStream inputStream,
                                OutputStream outputStream) {
     this.inputStream = inputStream;
     this.outputStream = outputStream;
@@ -113,6 +107,16 @@ public class DocumentFileProcessor {
 
   private void emit(String text) {
     System.out.println("\"" + text + "\\0\"");
+    try {
+      outputStream.write(text.getBytes("UTF-8"));
+      outputStream.write((byte)0);
+    }
+    catch (UnsupportedEncodingException e) {
+      throw new RuntimeException("UTF-8 not supported.");
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Error writing bytes.");
+    }
   }
 
 
