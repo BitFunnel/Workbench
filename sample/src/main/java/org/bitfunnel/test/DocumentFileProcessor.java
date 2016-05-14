@@ -1,6 +1,7 @@
 package org.bitfunnel.test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.Scanner;
@@ -15,11 +16,11 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 
 public class DocumentFileProcessor {
-  Path input;
-  Path output;
+  InputStream inputStream;
+  OutputStream outputStream;
 
   Scanner scanner;
-  OutputStream outputStream;
+//  OutputStream outputStream;
 
   String line;
 
@@ -29,15 +30,15 @@ public class DocumentFileProcessor {
   static Analyzer analyzer = new StandardAnalyzer();
 
 
-  public DocumentFileProcessor(Path input, Path output) {
-    this.input = input;
-    this.output = output;
+  public DocumentFileProcessor(InputStream inputStream,
+                               OutputStream outputStream) {
+    this.inputStream = inputStream;
+    this.outputStream = outputStream;
   }
 
 
   public void ProcessFile() throws IOException, Exception {
-    System.out.println("Open file " + output + " inside of try.");
-    scanner = new Scanner(input);
+    scanner = new Scanner(inputStream);
     ProcessAllDocuments();
   }
 
