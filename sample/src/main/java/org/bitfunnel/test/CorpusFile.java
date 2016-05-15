@@ -1,5 +1,9 @@
 package org.bitfunnel.test;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import sun.print.DocumentPropertiesUI;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -17,7 +21,57 @@ public class CorpusFile implements Iterable<CorpusFile.Document>,
   {
     this.inputStream = inputStream;
     currentByte = -1;
-    current = parseNext();
+//    current = parseNext();
+  }
+
+
+  void process(IDocumentProcessor processor) {
+    processor.OpenDocumentSet();
+    while (peek() != 0)
+    {
+      processDocument(processor);
+    }
+    Consume(0);
+    processor.CloseDocumentSet();
+  }
+
+
+  void processDocument(IDocumentProcessor processor) {
+    processor.OpenDocument();
+    while (peek() != 0)
+    {
+      processStream(processor);
+    }
+    Consume(0);
+    processor.CloseDocument();
+  }
+
+
+  void processStream(IDocumentProcessor processor) {
+    processor.OpenStream(parseTerm());
+    while (peek() != 0)
+    {
+      processor.Term(parseTerm());
+    }
+    Consume(0);
+    processor.CloseStream();
+  }
+
+
+  String parseTerm()
+  {
+    ByteArrayOutputStream builder = new ByteArrayOutputStream();
+    while (peek() != 0) {
+      if (peek() == -1) {
+        throw new RuntimeException("Attempted read past end of stream.");
+      }
+
+      builder.write((byte)get());
+    }
+    // Consume zero at end of term.
+    Consume(0);
+
+    return builder.toString();
   }
 
 
@@ -29,17 +83,23 @@ public class CorpusFile implements Iterable<CorpusFile.Document>,
 
   @Override
   public boolean hasNext() {
-    return peek() != -1;
+    return current != null;
   }
 
 
   @Override
   public Document next() {
-    if (peek() == -1)
+    if (current == null)
     {
       throw new NoSuchElementException();
     }
-    return new Document();
+    Document result = current;
+    current = parseNext();
+    if (current == null) {
+      // Consume trailing 0 that marks end of the file.
+      Consume(0);
+    }
+    return result;
   }
 
 
@@ -186,15 +246,15 @@ public class CorpusFile implements Iterable<CorpusFile.Document>,
 
     private String parseNext() {
       if (peek() != 0) {
-        StringBuilder builder = new StringBuilder();
+        ByteArrayOutputStream builder = new ByteArrayOutputStream();
         while (peek() != 0) {
           if (peek() == -1) {
             throw new RuntimeException("Attempted read pas end of stream.");
           }
 
-          builder.append(get());
+          builder.write((byte)get());
         }
-        // Consume trailing zero.
+        // Consume zero at end of term.
         Consume(0);
 
         return builder.toString();

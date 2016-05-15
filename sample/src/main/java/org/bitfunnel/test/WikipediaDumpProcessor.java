@@ -25,7 +25,7 @@ public class WikipediaDumpProcessor {
 
 
   public WikipediaDumpProcessor(InputStream inputStream,
-                               OutputStream outputStream) {
+                                OutputStream outputStream) {
     this.inputStream = inputStream;
     this.outputStream = outputStream;
   }
