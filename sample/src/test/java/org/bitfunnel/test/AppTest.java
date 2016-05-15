@@ -4,12 +4,10 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-//import org.bitfunnel.test.WikipediaDumpProcessor;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-//import java.nio.file.Files;
 import java.util.Arrays;
+
 
 /**
  * Unit test for simple App.
@@ -25,6 +23,7 @@ public class AppTest
     super(testName);
   }
 
+
   /**
    * @return the suite of tests being tested
    */
@@ -32,8 +31,9 @@ public class AppTest
     return new TestSuite(AppTest.class);
   }
 
+
   /**
-   * Rigourous Test :-)
+   * Test converting Wikipedia dump to corpus file format.
    */
   public void testWikipediaToCorpus() {
     String wikipedia =
@@ -54,98 +54,95 @@ public class AppTest
     WikipediaDumpProcessor processor = new WikipediaDumpProcessor(input, output);
     try {
       processor.ProcessFile();
+
+      byte[] outputBytes = output.toByteArray();
+      assertTrue(Arrays.equals(outputBytes, expected));
     }
     catch (Exception e){
       System.out.println("Exception");
       e.printStackTrace();
+      fail();
     }
-
-    byte[] outputBytes = output.toByteArray();
-
-//    for (int i = 0 ; i < outputBytes.length; ++i)   {
-//      System.out.println(i + ": " + outputBytes[i] + "  " + expected[i]);
-//    }
-
-    assertTrue(Arrays.equals(outputBytes, expected));
-
-    System.out.println("hello");
   }
 
 
+  /**
+   * Test reading then writing corpus file format.
+   */
+  public void testCorpusFile() {
+    byte[] inputBytes =
+        ("title\0one\0\0id\000123\0\0content\0body\0text\0\0\0" +
+            "title\0two\0\0id\000456\0\0content\0some\0more\0body\0text\0\0\0" +
+            "\0").getBytes(StandardCharsets.UTF_8);
+
+    ByteArrayInputStream input = new ByteArrayInputStream(inputBytes);
+
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+
+    DocumentProcessor processor = new DocumentProcessor(printStream);
+
+    CorpusFile corpus = new CorpusFile(input);
+    corpus.process(processor);
+    
+    byte[] outputBytes = outputStream.toByteArray();
+    System.out.println(outputBytes.toString());
+    assertTrue(Arrays.equals(outputBytes, inputBytes));
+  }
+
+
+  //
+  // Implementation of IDocumentProcessor that emits a string in corpus file
+  // format. Used to test reading then writing corpus file.
+  //
   public class DocumentProcessor implements IDocumentProcessor
   {
-    OutputStream outputStream;
+    PrintStream outputStream;
 
-    public DocumentProcessor(OutputStream outputStream) {
+    public DocumentProcessor(PrintStream outputStream) {
       this.outputStream = outputStream;
     }
 
     @Override
-    public void OpenDocumentSet() {
-      System.out.println("OpenDocumentSet");
+    public void openDocumentSet() {
+      System.out.println("openDocumentSet");
     }
 
     @Override
-    public void OpenDocument() {
-      System.out.println("  OpenDocument");
+    public void openDocument() {
+      System.out.println("  openDocument");
     }
 
     @Override
-    public void OpenStream(String name) {
-      System.out.println("    OpenStream(" + name + ")");
+    public void openStream(String name) {
+      System.out.println("    openStream(" + name + ")");
+      outputStream.print(name);
+      outputStream.print("\0");
     }
 
     @Override
-    public void Term(String term) {
-      System.out.println("      Term(" + term + ")");
+    public void term(String term) {
+      System.out.println("      term(" + term + ")");
+      outputStream.print(term);
+      outputStream.print("\0");
     }
 
     @Override
-    public void CloseStream() {
-      System.out.println("    CloseStream");
+    public void closeStream() {
+      System.out.println("    closeStream");
+      outputStream.print("\0");
     }
 
     @Override
-    public void CloseDocument() {
-      System.out.println("  CloseDocument");
-
+    public void closeDocument() {
+      System.out.println("  closeDocument");
+      outputStream.print("\0");
     }
 
     @Override
-    public void CloseDocumentSet() {
-      System.out.println("CloseDocumentSet");
+    public void closeDocumentSet() {
+      System.out.println("closeDocumentSet");
+      outputStream.print("\0");
     }
-  }
-
-
-  public void testCorpusFile() {
-    ByteArrayInputStream input =
-        new ByteArrayInputStream(
-            ("title\0one\0\0id\000123\0\0content\0body\0text\0\0\0" +
-             "title\0two\0\0id\000456\0\0content\0some\0more\0body\0text\0\0\0" +
-             "\0").getBytes(StandardCharsets.UTF_8));
-
-    //StringWriter output = new StringWriter();
-    ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
-    PrintStream output = new PrintStream(outputBytes);
-
-    DocumentProcessor processor = new DocumentProcessor(System.out);
-
-    CorpusFile corpus = new CorpusFile(input);
-    corpus.process(processor);
-
-//    for (CorpusFile.Document document: corpus) {
-//      for (CorpusFile.Stream stream: document) {
-//        System.out.println("name = " + stream.name());
-//        for (String s: stream) {
-//          System.out.println("XXX: \"" + s + "\"");
-//          //output.println(s);
-//        }
-//      }
-//    }
-
-    System.out.println(outputBytes.toString());
-
-    assertTrue(true);
   }
 }

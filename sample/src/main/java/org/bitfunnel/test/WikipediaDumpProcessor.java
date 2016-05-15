@@ -1,6 +1,7 @@
 package org.bitfunnel.test;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.util.regex.Matcher;
@@ -108,11 +109,8 @@ public class WikipediaDumpProcessor {
   private void emit(String text) {
     System.out.println("\"" + text + "\\0\"");
     try {
-      outputStream.write(text.getBytes("UTF-8"));
+      outputStream.write(text.getBytes(StandardCharsets.UTF_8));
       outputStream.write((byte)0);
-    }
-    catch (UnsupportedEncodingException e) {
-      throw new RuntimeException("UTF-8 not supported.");
     }
     catch (IOException e) {
       throw new RuntimeException("Error writing bytes.");

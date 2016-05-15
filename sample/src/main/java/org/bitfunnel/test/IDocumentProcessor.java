@@ -4,11 +4,11 @@ package org.bitfunnel.test;
  * Created by michaelhopcroft on 5/14/16.
  */
 public interface IDocumentProcessor {
-  public void OpenDocumentSet();
-  public void OpenDocument();
-  public void OpenStream(String name);
-  public void Term(String term);
-  public void CloseStream();
-  public void CloseDocument();
-  public void CloseDocumentSet();
+  public void openDocumentSet();
+  public void openDocument();
+  public void openStream(String name);
+  public void term(String term);
+  public void closeStream();
+  public void closeDocument();
+  public void closeDocumentSet();
 }
