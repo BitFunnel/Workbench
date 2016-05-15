@@ -77,16 +77,14 @@ public class AppTest
 
     ByteArrayInputStream input = new ByteArrayInputStream(inputBytes);
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    PrintStream printStream = new PrintStream(outputStream);
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-    DocumentProcessor processor = new DocumentProcessor(printStream);
+    DocumentProcessor processor = new DocumentProcessor(output);
 
     CorpusFile corpus = new CorpusFile(input);
     corpus.process(processor);
-    
-    byte[] outputBytes = outputStream.toByteArray();
-    System.out.println(outputBytes.toString());
+
+    byte[] outputBytes = output.toByteArray();
     assertTrue(Arrays.equals(outputBytes, inputBytes));
   }
 
@@ -97,9 +95,9 @@ public class AppTest
   //
   public class DocumentProcessor implements IDocumentProcessor
   {
-    PrintStream outputStream;
+    ByteArrayOutputStream outputStream;
 
-    public DocumentProcessor(PrintStream outputStream) {
+    public DocumentProcessor(ByteArrayOutputStream outputStream) {
       this.outputStream = outputStream;
     }
 
@@ -116,33 +114,45 @@ public class AppTest
     @Override
     public void openStream(String name) {
       System.out.println("    openStream(" + name + ")");
-      outputStream.print(name);
-      outputStream.print("\0");
+      try {
+        outputStream.write(name.getBytes(StandardCharsets.UTF_8));
+        outputStream.write((byte)0);
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+        fail();
+      }
     }
 
     @Override
     public void term(String term) {
       System.out.println("      term(" + term + ")");
-      outputStream.print(term);
-      outputStream.print("\0");
+      try {
+        outputStream.write(term.getBytes(StandardCharsets.UTF_8));
+        outputStream.write((byte)0);
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+        fail();
+      }
     }
 
     @Override
     public void closeStream() {
       System.out.println("    closeStream");
-      outputStream.print("\0");
+      outputStream.write((byte)0);
     }
 
     @Override
     public void closeDocument() {
       System.out.println("  closeDocument");
-      outputStream.print("\0");
+      outputStream.write(0);
     }
 
     @Override
     public void closeDocumentSet() {
       System.out.println("closeDocumentSet");
-      outputStream.print("\0");
+      outputStream.write(0);
     }
   }
 }
