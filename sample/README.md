@@ -133,15 +133,15 @@ Install Maven.
 1. Extract to some location on the machine.
 1. Add the extracted folder's bin directory to the PATH.
   1. Open the System Control panel by pressing (Windows + Pause).
-  ![alt text](blob/master/README/system-control-panel.png)
+  ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/system-control-panel.png)
   1. Choose **Advanced System Settings** on the left.
-  ![alt text](blob/master/README/advanced-system-settings.png)
+  ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/advanced-system-settings.png)
   1. Click **Environment Varables** at the bottom of the dialog.
-  ![alt text](blob/master/README/environment-variables.png)
+  ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/environment-variables.png)
   1. Select the variable called **PATH** and press **Edit...**
-  ![alt text](blob/master/README/system-control-panel.png)
+  ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/system-control-panel.png)
   1. Add a semicolon (;) to the PATH and then the path to the extracted bin folder.
-  ![alt text](blob/master/README/edit-user-variable.png)
+  ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/edit-user-variable.png)
   1. **OK** out of all of the dialogs.
   1. Close and reopen and cmd.exe windows to get the new PATH.
   1. Tip. You can update the path in an open cmd.exe window, for example
