@@ -197,31 +197,39 @@ it provides a number of nice code browsing and refactoring features.
 IntelliJ is available on Linux, OSX, and Windows.
 
 Start IntelliJ. From the welcome screen, select **open**:
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/welcome-to-intellij-idea.png)
 
 Select **pom.xml** and press **OK**.
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-open-file-or-project.png)
 
 The project will be imported. Now set up the debug and run configurations by clicking on **Run => Edit Configurations ...**
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-edit-configurations.png)
 
 The click the green **+** in the upper left corner to add a new configuration:
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-run-debug-configurations.png)
 
 Select **Application**
-![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-add-new-configurations.png)
+
+![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-add-new-configuration.png)
 
 On the configuration tab, choose a **Name** for the configuration, set the **Main class** field to
 org.bitfunnel.workbench.MakeCorpusFile, and set the **Program arguments** to reference your
 input and output directories. **OK** out of all of the dialogs.
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-configuration-tab.png)
 
 If you plan to edit the pom.xml file, say to add additional dependencies, it helps to configure
 auto import. To do this, go to **File => Settings ...**
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-settings.png)
 
 Expand the tree on the left to **Build, Execution, Deployment/Build Tools/Maven/Importing**. Select
-**Import Maven projects automatically.**
+**Import Maven projects automatically.** **OK** out of the dialog.
+
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/intellij-maven-settings.png)
 
 You are now good to go!
