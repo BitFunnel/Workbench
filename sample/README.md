@@ -66,10 +66,37 @@ The wikipedia dump is XML data that looks something like
 </mediawiki>
 ~~~
 
-This data must be preprocessed with [wikiextractor](https://github.com/attardi/wikiextractor)
-before converting to BitFunnel corpus format. The wikiextractor program
+This data must be preprocessed with an open source program called
+[WikiExtractor](https://github.com/attardi/wikiextractor)
+before converting to BitFunnel corpus format. The WikiExtractor program
 parses the XML dump file, extracts the title, url, curid, text for each
 page, and then strips all of the wiki markup tags from the text.
+
+WikiExtractor requires Python 2.7 (note: Python 3 and beyond are not compatable with version 2.7).
+To install Python on the mac,
+~~~
+brew install python
+~~~
+
+To install Python on linux,
+~~~
+sudo apt install python
+~~~
+
+On windows, run the [Python 2.7.11 installer](https://www.python.org/downloads/).
+
+You can run wikiextractor from the command line as follows:
+~~~
+./WikiExtractor.py input
+~~~
+where **input** is an uncompressed Wikipedia database dump file.
+If you don't supply the "-o" option the output will be written
+to the directory ./text.
+
+Note that some versions of WikiExtractor may fail on Windows because of a
+bug related to process spawning.
+You can work around this bug by using the "-a" flag, but the extraction will be
+slower because it will be limited to a single thread.
 
 The output of wikiextractor looks something like
 
@@ -81,10 +108,11 @@ The output of wikiextractor looks something like
 ... more documents ...
 ~~~
 
-We were able to successfully process [enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2](https://dumps.wikimedia.org/enwiki/20160407/enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2) using wikiextractor [commit 60e40824](https://github.com/attardi/wikiextractor/commit/60e4082440b626465b2df30301ab00c3a04cd79b).
+We were able to successfully process
+[enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2](https://dumps.wikimedia.org/enwiki/20160407/enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2) using wikiextractor [commit 60e40824](https://github.com/attardi/wikiextractor/commit/60e4082440b626465b2df30301ab00c3a04cd79b).
 
 Note that this version of wikiextractor will not run on Windows
-because of a bug.
+without the "-a" flag because of a bug.
 
 ## Generating the BitFunnel Corpus Files
 The Java class **org.bitfunnel.workbench.MakeCorpusFile** converts
@@ -101,8 +129,8 @@ Command line for OSX and Linux:
        output
 ~~~
 
-where _input_ is the name of a directory containing wikiextractor
-output and _output_ is the name of a directory to create for the
+where **input** is the name of a directory containing wikiextractor
+output and **output** is the name of a directory to create the
 BitFunnel corpus files.
 
 ## Building org.bitfunnel.workbench.
@@ -146,16 +174,16 @@ Install Maven.
   1. **OK** out of all of the dialogs.
   1. Close and reopen any cmd.exe windows to get the new PATH.
   1. Tip. You can update the path in an open cmd.exe window, for example
-  ~~~
-  set PATH=%PATH%;C:\C:\Program Files\apache-maven-3.3.9\bin
-  ~~~
+     ~~~
+     set PATH=%PATH%;C:\C:\Program Files\apache-maven-3.3.9\bin
+     ~~~
 
      This change will only have effect in the current window and only until it is closed.
 
-  1. In a similar manner, set the JAVA_HOME to point to your JDK. For example,
-  ~~~
-  set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_92
-  ~~~
+1. In a similar manner, set the JAVA_HOME to point to your JDK. For example,
+   ~~~
+   set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_92
+   ~~~
 
 
 ### Linux Configuration and Build
