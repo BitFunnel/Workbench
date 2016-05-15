@@ -103,17 +103,14 @@ public class AppTest
 
     @Override
     public void openDocumentSet() {
-      System.out.println("openDocumentSet");
     }
 
     @Override
     public void openDocument() {
-      System.out.println("  openDocument");
     }
 
     @Override
     public void openStream(String name) {
-      System.out.println("    openStream(" + name + ")");
       try {
         outputStream.write(name.getBytes(StandardCharsets.UTF_8));
         outputStream.write((byte)0);
@@ -126,7 +123,6 @@ public class AppTest
 
     @Override
     public void term(String term) {
-      System.out.println("      term(" + term + ")");
       try {
         outputStream.write(term.getBytes(StandardCharsets.UTF_8));
         outputStream.write((byte)0);
@@ -139,19 +135,16 @@ public class AppTest
 
     @Override
     public void closeStream() {
-      System.out.println("    closeStream");
       outputStream.write((byte)0);
     }
 
     @Override
     public void closeDocument() {
-      System.out.println("  closeDocument");
       outputStream.write(0);
     }
 
     @Override
     public void closeDocumentSet() {
-      System.out.println("closeDocumentSet");
       outputStream.write(0);
     }
   }

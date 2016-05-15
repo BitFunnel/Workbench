@@ -107,7 +107,6 @@ public class WikipediaDumpProcessor {
 
 
   private void emit(String text) {
-    System.out.println("\"" + text + "\\0\"");
     try {
       outputStream.write(text.getBytes(StandardCharsets.UTF_8));
       outputStream.write((byte)0);
