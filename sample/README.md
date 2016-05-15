@@ -1,11 +1,12 @@
 # Corpus Tools
 
-The org.bitfunnel.corpus-tools package provides tools for converting Wikipedia 
+The **org.bitfunnel.workbench** package provides tools for converting
+[Wikipedia](https://www.wikipedia.org/)
 database dump files into BitFunnel corpus files. We designed BitFunnel corpus
 files with the goal of trivial and extremely low overhead parsing.
 
 The conversion process involves parsing the Wikipedia dump files, extracting
-each document, removing wiki markup, performing [Lucene] analysis for
+each document, removing wiki markup, performing [Lucene](https://lucene.apache.org/) analysis for
 tokenization and stemming, and finally generating encoding and writing
 the data in BitFunnel format.
 
@@ -20,7 +21,7 @@ once and then use the resulting BitFunnel corpus files many time over.
 1. Obtain a Wikipedia database dump file.  These files are available at 
 [https://dumps.wikimedia.org/](https://dumps.wikimedia.org/).
 
-1. Click on [Database backup dumps](https://dumps.wikimedia.org/backup-index.html) 
+1. Click on [Database backup dumps](https://dumps.wikimedia.org/backup-index.html).
 The dumps of the English language Wikipedia pages are under [enwiki]
 (https://dumps.wikimedia.org/enwiki/). Each folder here corresponds to
 a dump on a particular day.
@@ -86,7 +87,7 @@ Note that this version of wikiextractor will not run on Windows
 because of a bug.
 
 ## Generating the BitFunnel Corpus Files
-The Java class org.bitfunnel.workbench.MakeCorpusFile converts
+The Java class **org.bitfunnel.workbench.MakeCorpusFile** converts
 the wikiextractor output to BitFunnel corpus format.
 The converter uses the [Lucene](https://lucene.apache.org/) Standard Analyzer
 to tokenize and stem each word in the extracted Wikipedia dump.
@@ -106,13 +107,13 @@ BitFunnel corpus files.
 
 ## Building org.bitfunnel.workbench.
 
-This Java package is built with [Maven](https://maven.apache.org/).
+Java development requires a JDK ((we used jdk1.8.0_92).
+Our package is built with [Maven](https://maven.apache.org/).
 (version 3.3.9).
 The unit tests are based on [JUnit](http://junit.org/).
-Need to install the JDk (we used jdk1.8.0_92).
 
 ### OSX Configuration and Build
-Install a JDK. We used Oracle's [Java SE 8u92] which can be
+Install a JDK. We used Oracle's **Java SE 8u92** which can be
 found on their [downloads page](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 Use homebrew to install Maven:
@@ -129,7 +130,7 @@ Build org.bitfunnel.workbench from the command line:
 
 Install Maven.
 
-1. Download [.zip file](https://maven.apache.org/download.cgi).
+1. Download the Maven [.zip file](https://maven.apache.org/download.cgi).
 1. Extract to some location on the machine.
 1. Add the extracted folder's bin directory to the PATH.
   1. Open the System Control panel by pressing (Windows + Pause).
@@ -143,16 +144,18 @@ Install Maven.
   1. Add a semicolon (;) to the PATH and then the path to the extracted bin folder.
   ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/sample/README/edit-user-variable.png)
   1. **OK** out of all of the dialogs.
-  1. Close and reopen and cmd.exe windows to get the new PATH.
+  1. Close and reopen any cmd.exe windows to get the new PATH.
   1. Tip. You can update the path in an open cmd.exe window, for example
-~~~
-set PATH=%PATH%;C:\C:\Program Files\apache-maven-3.3.9\bin
-~~~
-     This change will have effect in the current window until it is closed.
+  ~~~
+  set PATH=%PATH%;C:\C:\Program Files\apache-maven-3.3.9\bin
+  ~~~
+
+     This change will only have effect in the current window and only until it is closed.
+
   1. In a similar manner, set the JAVA_HOME to point to your JDK. For example,
-~~~
-set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_92
-~~~
+  ~~~
+  set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_92
+  ~~~
 
 
 ### Linux Configuration and Build
