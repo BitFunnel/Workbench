@@ -1,4 +1,4 @@
-package org.bitfunnel.test;
+package org.bitfunnel.workbench;
 
 /**
  * Created by michaelhopcroft on 5/14/16.

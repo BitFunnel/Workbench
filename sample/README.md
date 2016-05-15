@@ -97,7 +97,7 @@ BitFunnel corpus files.
 
 ## Building org.bitfunnel.workbench.
 
-This is a Java package that is built with [Maven](https://maven.apache.org/).
+This Java package is built with [Maven](https://maven.apache.org/).
 (version 3.3.9).
 The unit tests are based on [JUnit](http://junit.org/).
 

@@ -1,4 +1,4 @@
-package org.bitfunnel.test;
+package org.bitfunnel.workbench;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

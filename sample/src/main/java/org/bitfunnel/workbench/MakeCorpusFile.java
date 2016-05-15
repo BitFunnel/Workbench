@@ -7,14 +7,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.bitfunnel.test.WikipediaDumpProcessor;
-
 /*
 x Is DocumentFile a good name? Seems given DocumentFileProcessor.
 x   What is name of input file type? WikipediaDump?
 x   What is name of output file type? BitFunnelCorpus?
-Write out corpus file as UTF8 bytes.
-Fix package name.
+x Write out corpus file as UTF8 bytes.
+Fix package name. Should be org.bitfunnel.workbench.
 README.md
 Release vs debug builds.
 Test running on Windows and Linux.
@@ -25,13 +23,12 @@ Sample data files.
 x Rename App to CorpusConverter.
 Test converting large corpus files.
 Measure conversion time.
-Print progress indicator.
-JUnit test function to convert and then read back one file.
+Progress indicator.
+x JUnit workbench function to convert and then read back one file.
 Corpus statistics class
   Counts of files, documents, streams per document
   Byte size of files.
-
-InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
+Java documentation comments.
  */
 
 public class MakeCorpusFile {
@@ -86,12 +83,7 @@ public class MakeCorpusFile {
 
       System.out.println("Open file " + destination + " inside of try.");
 
-//       Files.createDirectories(output.getParent());
-//        try (OutputStream outputStream = Files.newOutputStream(output)) {
-
-//      OutputStream outputStream = System.out;
       try (InputStream inputStream = Files.newInputStream(path);
-//           /*OutputStream outputStream = System.out*/) {
            OutputStream outputStream = Files.newOutputStream(destination)) {
         WikipediaDumpProcessor processor =
             new WikipediaDumpProcessor(inputStream, outputStream);

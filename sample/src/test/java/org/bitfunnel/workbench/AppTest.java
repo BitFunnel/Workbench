@@ -1,4 +1,4 @@
-package org.bitfunnel.test;
+package org.bitfunnel.workbench;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -10,14 +10,14 @@ import java.util.Arrays;
 
 
 /**
- * Unit test for simple App.
+ * Unit workbench for simple App.
  */
 public class AppTest
     extends TestCase {
   /**
-   * Create the test case
+   * Create the workbench case
    *
-   * @param testName name of the test case
+   * @param testName name of the workbench case
    */
   public AppTest(String testName) {
     super(testName);
@@ -91,7 +91,7 @@ public class AppTest
 
   //
   // Implementation of IDocumentProcessor that emits a string in corpus file
-  // format. Used to test reading then writing corpus file.
+  // format. Used to workbench reading then writing corpus file.
   //
   public class DocumentProcessor implements IDocumentProcessor
   {

@@ -1,9 +1,8 @@
-package org.bitfunnel.test;
+package org.bitfunnel.workbench;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.nio.file.Path;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
