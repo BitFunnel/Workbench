@@ -12,6 +12,11 @@ x Is DocumentFile a good name? Seems given DocumentFileProcessor.
 x   What is name of input file type? WikipediaDump?
 x   What is name of output file type? BitFunnelCorpus?
 x Write out corpus file as UTF8 bytes.
+Rename iml file - decide whether to commit
+Remove references to sample from pom.xml
+Figure out artifact id in pom.xml
+IntelliJ walkthrough
+Test command line build
 Fix package name. Should be org.bitfunnel.workbench.
 README.md
 Release vs debug builds.
@@ -29,6 +34,11 @@ Corpus statistics class
   Counts of files, documents, streams per document
   Byte size of files.
 Java documentation comments.
+
+commons_cli_commons_cli_1_3_1.xml
+org_apache_lucene_lucene_analyzers_common_6_0_0.xml
+org_apache_lucene_lucene_core_6_0_0.xml
+Maven__junit_junit_3_8_1.xml
  */
 
 public class MakeCorpusFile {
