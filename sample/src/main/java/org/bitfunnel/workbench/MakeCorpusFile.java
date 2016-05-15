@@ -35,10 +35,10 @@ Corpus statistics class
   Byte size of files.
 Java documentation comments.
 
-commons_cli_commons_cli_1_3_1.xml
-org_apache_lucene_lucene_analyzers_common_6_0_0.xml
-org_apache_lucene_lucene_core_6_0_0.xml
-Maven__junit_junit_3_8_1.xml
+commons-cli:commons-cli:1.3.1
+org.apache.lucene:lucene-analyzers-common:6.0.0
+org.apache.lucene:lucene-core:6.0.0
+Maven:junit:junit:3.8.1
  */
 
 public class MakeCorpusFile {
