@@ -8,6 +8,39 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /*
+Make the Maven script use Shade to packup up dependencies.
+Document IntelliJ/Maven setup.
+  Maven
+    Download zip file
+    Unzip to ...
+    Add bin dir to path
+    Set JAVA_PATH
+
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\Mike>where mvn
+C:\Program Files\apache-maven-3.3.9\bin\mvn
+C:\Program Files\apache-maven-3.3.9\bin\mvn.cmd
+
+C:\Users\Mike>mvn --version
+
+Error: JAVA_HOME not found in your environment.
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation.
+
+
+C:\Users\Mike>set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_92
+
+C:\Users\Mike>mvn --version
+Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T08:41:47-08:00)
+Maven home: C:\Program Files\apache-maven-3.3.9\bin\..
+Java version: 1.8.0_92, vendor: Oracle Corporation
+Java home: C:\Program Files\Java\jdk1.8.0_92\jre
+Default locale: en_US, platform encoding: Cp1252
+OS name: "windows 7", version: "6.1", arch: "amd64", family: "dos"
+
+
 x Is DocumentFile a good name? Seems given DocumentFileProcessor.
 x   What is name of input file type? WikipediaDump?
 x   What is name of output file type? BitFunnelCorpus?
