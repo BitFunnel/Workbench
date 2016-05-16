@@ -72,7 +72,8 @@ before converting to BitFunnel corpus format. The WikiExtractor program
 parses the XML dump file, extracts the title, url, curid, text for each
 page, and then strips all of the wiki markup tags from the text.
 
-WikiExtractor requires Python 2.7 (note that Python 3 and beyond are not compatable with version 2.7).
+WikiExtractor requires Python 2.7
+(note that Python 3 and beyond are not compatible with version 2.7).
 To install Python on the mac,
 ~~~
 brew install python
@@ -119,18 +120,25 @@ The Java class **org.bitfunnel.workbench.MakeCorpusFile** converts
 the WikiExtractor output to BitFunnel corpus format.
 The converter uses the [Lucene](https://lucene.apache.org/) Standard Analyzer
 to tokenize and stem each word in the extracted Wikipedia dump.
-Type
+
+This repository includes a pair of sample input files in the $$sample-input$$ directory.
+~~~
+% ls -l
+total 8
+-rw-r--r-- 1 Mike 197121 1283 May 15 17:05 Frost.txt
+-rw-r--r-- 1 Mike 197121 2769 May 15 17:09 Whitman.txt
+~~~
 
 Command line for OSX and Linux:
 ~~~
 % java -cp target/corpus-converter-1.0-SNAPSHOT.jar \
        org.bitfunnel.workbench.MakeCorpusFile \
-       input \
-       output
+       sample-input \
+       sample-output
 ~~~
 
-where **input** is the name of a directory containing wikiextractor
-output and **output** is the name of a directory to create the
+where **sample-input** is the name of a directory containing wikiextractor
+output and **sample-output** is the name of a directory to create the
 BitFunnel corpus files.
 
 ## Building org.bitfunnel.workbench.
