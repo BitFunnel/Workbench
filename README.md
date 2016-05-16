@@ -110,7 +110,8 @@ The output of wikiextractor looks something like
 ~~~
 
 We were able to successfully process
-[enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2](https://dumps.wikimedia.org/enwiki/20160407/enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2) using wikiextractor [commit 60e40824](https://github.com/attardi/wikiextractor/commit/60e4082440b626465b2df30301ab00c3a04cd79b).
+[enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2](https://dumps.wikimedia.org/enwiki/20160407/enwiki-20160407-pages-meta-current1.xml-p000000010p000030303.bz2)
+using WikiExtractor [commit 60e40824](https://github.com/attardi/wikiextractor/commit/60e4082440b626465b2df30301ab00c3a04cd79b).
 
 Note that this version of WikiExtractor will not run on Windows
 without the "-a" flag because of a bug.
@@ -121,7 +122,7 @@ the WikiExtractor output to BitFunnel corpus format.
 The converter uses the [Lucene](https://lucene.apache.org/) Standard Analyzer
 to tokenize and stem each word in the extracted Wikipedia dump.
 
-This repository includes a pair of sample input files in the $$sample-input$$ directory.
+This repository includes a pair of sample input files in the **sample-input** directory.
 ~~~
 % ls -l
 total 8

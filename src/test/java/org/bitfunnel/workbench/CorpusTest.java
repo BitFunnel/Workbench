@@ -36,14 +36,14 @@ import java.util.Arrays;
 /**
  * Unit workbench for simple App.
  */
-public class AppTest
+public class CorpusTest
     extends TestCase {
   /**
    * Create the workbench case
    *
    * @param testName name of the workbench case
    */
-  public AppTest(String testName) {
+  public CorpusTest(String testName) {
     super(testName);
   }
 
@@ -52,7 +52,7 @@ public class AppTest
    * @return the suite of tests being tested
    */
   public static Test suite() {
-    return new TestSuite(AppTest.class);
+    return new TestSuite(CorpusTest.class);
   }
 
 

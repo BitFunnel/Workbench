@@ -31,43 +31,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/*
-Make the Maven script use Shade to packup up dependencies.
-
-x Is DocumentFile a good name? Seems given DocumentFileProcessor.
-x   What is name of input file type? WikipediaDump?
-x   What is name of output file type? BitFunnelCorpus?
-x Write out corpus file as UTF8 bytes.
-Rename AppTest
-Rename iml file - decide whether to commit
-Remove references to sample from pom.xml
-Figure out artifact id in pom.xml
-x IntelliJ walkthrough
-x Test command line build
-Test command line run
-Fix package name. Should be org.bitfunnel.workbench.
-x README.md
-Release vs debug builds.
-. Test running on Windows and Linux.
-Put code into real repository.
-Sample data files.
-  Perhaps public domain poems.
-  Very short Wikipedia articles.
-x Rename App to CorpusConverter.
-Test converting large corpus files.
-Measure conversion time.
-Progress indicator.
-x JUnit workbench function to convert and then read back one file.
-Corpus statistics class
-  Counts of files, documents, streams per document
-  Byte size of files.
-Java documentation comments.
-
-commons-cli:commons-cli:1.3.1
-org.apache.lucene:lucene-analyzers-common:6.0.0
-org.apache.lucene:lucene-core:6.0.0
-Maven:junit:junit:3.8.1
- */
 
 public class MakeCorpusFile {
   Path input;
