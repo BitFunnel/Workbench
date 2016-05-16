@@ -12,6 +12,7 @@
 # Maven
 log/
 target/
+dependency-reduced-pom.xml
 
 # Mac
 .DS_Store
