@@ -124,7 +124,7 @@ to tokenize and stem each word in the extracted Wikipedia dump.
 
 This repository includes a pair of sample input files in the **sample-input** directory.
 ~~~
-% ls -l
+% ls -l sample-input
 total 8
 -rw-r--r-- 1 Mike 197121 1283 May 15 17:05 Frost.txt
 -rw-r--r-- 1 Mike 197121 2769 May 15 17:09 Whitman.txt
@@ -149,8 +149,16 @@ On Windows:
 ~~~
 
 In the above examples, **sample-input** is the name of a directory
-containing wikiextractor output and **sample-output** is the name
+containing WikiExtractor output and **sample-output** is the name
 of a directory to create the BitFunnel corpus files.
+
+Here's the output
+~~~
+$ ls -l sample-output/
+total 8
+-rw-r--r-- 1 Mike 197121  836 May 15 23:55 Frost.txt
+-rw-r--r-- 1 Mike 197121 1862 May 15 23:55 Whitman.txt
+~~~
 
 ## Building org.bitfunnel.workbench.
 
@@ -174,6 +182,9 @@ Build org.bitfunnel.workbench from the command line:
 ~~~
 
 ### Windows Configuration and Build
+
+Install a JDK. We used Oracle's **Java SE 8u92** which can be
+found on their [downloads page](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 Install Maven.
 
@@ -203,6 +214,11 @@ Install Maven.
    ~~~
    set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_92
    ~~~
+
+Build org.bitfunnel.workbench from the command line:
+~~~
+% mvn package
+~~~
 
 
 ### Linux Configuration and Build
@@ -251,4 +267,4 @@ Expand the tree on the left to **Build, Execution, Deployment/Build Tools/Maven/
 
 ![alt text](https://github.com/MikeHopcroft/wbtest/blob/master/README/intellij-maven-settings.png)
 
-You are now good to go!
+You are now good to go! **Use Build => Make Project** to build and **Run => Run 'MakeCorpusFile' to run**.
