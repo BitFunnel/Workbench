@@ -178,9 +178,14 @@ Build org.bitfunnel.workbench from the command line:
 
 
 ### Linux Configuration and Build
-TBD
+
+~~~
+sudo apt install openjdk-8-jdk python maven
+mvn package
+~~~
 
 ### IntelliJ Configuration and Build
+
 [IntelliJ Community Edition](https://www.jetbrains.com/idea/)
 is a fairly lightweight, free IDE for Java.
 It has a good debugger, support for Ant, Maven, Gradle, and JUnit, and
