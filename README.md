@@ -16,6 +16,8 @@ files may be slow, subsequent experiments with BitFunnel corpus files should be 
 The expected workflow is to download a Wikipedia database dump and convert it
 once and then use the resulting BitFunnel corpus files many time over.
 
+Instructions for obtaining data and processing it below.
+
 ## Obtaining a the Wikipedia Database Dump
 
 1. Obtain a Wikipedia database dump file.  These files are available at 
