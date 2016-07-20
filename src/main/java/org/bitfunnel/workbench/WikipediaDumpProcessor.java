@@ -37,6 +37,9 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
 
 public class WikipediaDumpProcessor {
+  private static final int titleStreamId = 0;
+  private static final int bodyStreamId = 1;
+
   InputStream inputStream;
   OutputStream outputStream;
   Scanner scanner;
@@ -87,22 +90,18 @@ public class WikipediaDumpProcessor {
       throw new RuntimeException("Malformed document header.");
     }
 
-    String id = matcher.group(1);
+    int documentId = Integer.parseUnsignedInt(matcher.group(1));
+    emit(String.format("%016x", documentId));
     String title = matcher.group(2);
 
-    try (StreamScope scope = new StreamScope("title")) {
+    try (StreamScope scope = new StreamScope(titleStreamId)) {
       emit(title);
-    }
-
-    // TODO: Should id be an integer in the file?
-    try (StreamScope scope = new StreamScope("id")) {
-      emit(id);
     }
   }
 
 
   private void ProcessAllContentLines() throws Exception {
-    try (StreamScope scope = new StreamScope("content")) {
+    try (StreamScope scope = new StreamScope(bodyStreamId)) {
       while (true) {
         String line = PeekLine();
         if (!IsDocumentEnd(line)) {
@@ -196,8 +195,8 @@ public class WikipediaDumpProcessor {
 
 
   private class StreamScope implements java.lang.AutoCloseable {
-    public StreamScope(String name) {
-      emit(name);
+    public StreamScope(int streamId) {
+      emit(String.format("%02x", streamId));
     }
 
     @Override

@@ -69,9 +69,9 @@ public class CorpusTest
             "</doc>\n";
 
     byte[] expected =
-        ("title\0one\0\0id\000123\0\0content\0body\0text\0\0\0" +
-            "title\0two\0\0id\000456\0\0content\0some\0more\0body\0text\0\0\0" +
-            "\0").getBytes(StandardCharsets.UTF_8);
+        ("000000000000007b\00000\000one\000\00001\000body\000text\000\000\000" +
+            "00000000000001c8\00000\000two\000\00001\000some\000more\000body\000text\000\000\000" +
+            "\000").getBytes(StandardCharsets.UTF_8);
 
     InputStream input = new ByteArrayInputStream(wikipedia.getBytes(StandardCharsets.UTF_8));
     ByteArrayOutputStream output = new ByteArrayOutputStream();
