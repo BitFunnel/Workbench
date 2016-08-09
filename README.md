@@ -10,7 +10,7 @@ each document, removing wiki markup, performing [Lucene](https://lucene.apache.o
 tokenization and stemming, and finally generating encoding and writing
 the data in BitFunnel format.
 
-While the initial conversion from Wikipedia database dumps to BitFunnel corpus 
+While the initial conversion from Wikipedia database dumps to BitFunnel corpus
 files may be slow, subsequent experiments with BitFunnel corpus files should be fast and reliable.
 
 The expected workflow is to download a Wikipedia database dump and convert it
@@ -20,7 +20,7 @@ Instructions for obtaining data and processing it below.
 
 ## Obtaining a the Wikipedia Database Dump
 
-1. Obtain a Wikipedia database dump file.  These files are available at 
+1. Obtain a Wikipedia database dump file.  These files are available at
 [https://dumps.wikimedia.org/](https://dumps.wikimedia.org/).
 
 1. Click on [Database backup dumps](https://dumps.wikimedia.org/backup-index.html).
@@ -128,6 +128,12 @@ The unit tests are based on [JUnit](http://junit.org/).
 ### OSX Configuration and Build
 Install a JDK. We used Oracle's **Java SE 8u92** which can be
 found on their [downloads page](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+
+If you don't want to manually install the exact version we used, you can take your chances with the version of Java you'll get with homebrew; the following commands worked on 8/9/2016 with 10.11.5 (El Capitan), but there's guarnatee that the build will continue to work with future updates:
+~~~
+brew update
+brew cask install java
+~~~
 
 Use homebrew to install Maven:
 ~~~
