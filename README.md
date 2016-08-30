@@ -1,4 +1,4 @@
-# Corpus Tools
+# WorkBench: Tools for processing Wikipedia Dumps
 
 The **org.bitfunnel.workbench** package provides tools for converting
 [Wikipedia](https://www.wikipedia.org/)
