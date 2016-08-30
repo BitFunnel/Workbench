@@ -17,8 +17,8 @@ The expected workflow is to download a Wikipedia database dump and convert it
 once and then use the resulting BitFunnel corpus files many time over.
 
 Before processing a Wikipedia database dump follow [these instructions](BUILD.md) to 
-build the **org.bitfunnel.workbench** package. Instructions for obtaining the Wikipedia database dump
-and processing it appear below.
+build the **org.bitfunnel.workbench** package. Instructions for obtaining and processing
+a Wikipedia database dump appear below.
 
 ## Obtaining a the Wikipedia Database Dump
 
@@ -78,7 +78,7 @@ page, and then strips all of the wiki markup tags from the text.
 
 WikiExtractor requires Python 2.7
 (note that Python 3 and beyond are not compatible with version 2.7).
-To install Python on the mac,
+To install Python on the Mac,
 ~~~
 brew install python
 ~~~
