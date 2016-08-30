@@ -2,7 +2,8 @@
 
 The **org.bitfunnel.workbench** package provides tools for converting
 [Wikipedia](https://www.wikipedia.org/)
-database dump files into BitFunnel corpus files. We designed BitFunnel corpus
+database dump files into [BitFunnel corpus files](http://bitfunnel.org/corpus-file-format/).
+We designed BitFunnel corpus
 files with the goal of trivial and extremely low overhead parsing.
 
 The conversion process involves parsing the Wikipedia dump files, extracting
