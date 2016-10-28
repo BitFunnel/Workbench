@@ -61,15 +61,15 @@ public class CorpusTest
    */
   public void testWikipediaToCorpus() {
     String wikipedia =
-        "<doc id=\"123\" url=\"http://www.bitfunnel.org/123\" title=\"one\">\n" +
-            "This is the body text.\n" +
+        "<doc id=\"123\" url=\"http://www.bitfunnel.org/123\" title=\"w&i|k(i)p-e\\d:ia two\">\n" +
+            "This is the body:text.\n" +
             "</doc>\n" +
             "<doc id=\"456\" url=\"http://www.bitfunnel.org/456\" title=\"two\">\n" +
             "Some more body text.\n" +
             "</doc>\n";
 
     byte[] expected =
-        ("000000000000007b\00000\000one\000\00001\000body\000text\000\000\000" +
+        ("000000000000007b\00000\000w\000i\000k\000i\000p\000e\000d\000ia\000two\000\00001\000body\000text\000\000\000" +
             "00000000000001c8\00000\000two\000\00001\000some\000more\000body\000text\000\000\000" +
             "\000").getBytes(StandardCharsets.UTF_8);
 

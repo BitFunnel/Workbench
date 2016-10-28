@@ -92,10 +92,23 @@ public class WikipediaDumpProcessor {
 
     int documentId = Integer.parseUnsignedInt(matcher.group(1));
     emit(String.format("%016x", documentId));
-    String title = matcher.group(2);
 
-    try (StreamScope scope = new StreamScope(titleStreamId)) {
-      emit(title);
+    // NOTE: Lucene `StandardTokenizer` removes the ':' character from tokens,
+    // except in the case that they appear to be URIs. For simplicity, we
+    // choose to remove them entirely here.
+    String title = matcher.group(2).replaceAll(":", " ");
+
+
+    try (StreamScope scope = new StreamScope(titleStreamId);
+         TokenStream tokenStream
+              = analyzer.tokenStream("title", new StringReader(title))) {
+      tokenStream.reset();
+
+      CharTermAttribute term =
+        tokenStream.addAttribute(CharTermAttribute.class);
+      while (tokenStream.incrementToken()) {
+        emit(term.toString());
+      }
     }
   }
 
@@ -115,7 +128,10 @@ public class WikipediaDumpProcessor {
 
 
   private void ProcessOneContentLine() throws IOException {
-    String line = GetLine();
+    // NOTE: Lucene `StandardTokenizer` removes the ':' character from tokens,
+    // except in the case that they appear to be URIs. For simplicity, we
+    // choose to remove them entirely here.
+    String line = GetLine().replaceAll(":", " ");
 
     try (TokenStream tokenStream
              = analyzer.tokenStream("contents", new StringReader(line))) {
