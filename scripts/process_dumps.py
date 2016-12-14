@@ -2,9 +2,9 @@ import bz2
 import os.path
 import re
 import subprocess
-import urllib.request               # TODO: should be able to remove now.
-import urllib
-from urllib.parse import urlparse   # TODO: just use fully qualified name.
+import tarfile
+import urllib.request
+import urllib.parse
 
 
 def load_from_url(url):
@@ -22,7 +22,10 @@ def ensure_directory(path):
 
 
 def run(working_directory, command):
-    proc = subprocess.Popen(command, cwd = working_directory,  stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    proc = subprocess.Popen(command,
+                            cwd = working_directory,
+                            stdout = subprocess.PIPE,
+                            stderr = subprocess.PIPE)
     output, error = proc.communicate();
     returncode = proc.wait()
     print("Output = " + str(output))
@@ -31,14 +34,15 @@ def run(working_directory, command):
 
 
 class Corpus:
-    def __init__(self, root, url, wikiextractor_path):
-        self.root = root
+    def __init__(self, root, url, wikiextractor_repo, workbench_repo):
+        self.root = os.path.abspath(root)
         self.raw = os.path.join(root, "raw")
         self.dump_page = os.path.join(self.raw, "dump_page.html")
         self.extracted = os.path.join(root, "extracted")
         self.chunks = os.path.join(root, "chunks")
         self.url = url
-        self.wikiextractor = wikiextractor_path
+        self.wikiextractor = os.path.join(wikiextractor_repo, "WikiExtractor.py")
+        self.workbench = os.path.join(workbench_repo, "target", "corpus-tools-1.0-SNAPSHOT.jar")
 
 
     def initialize(self):
@@ -55,7 +59,9 @@ class Corpus:
         self.dumps = [(urllib.parse.urljoin(self.url, x),
                        re.search("enwiki-\d{8}-pages-articles\d+", x).group(0))
                       for x in hrefs]
-        self.dumps = [self.dumps[0]]
+        # TODO: Stop truncating self.dumps. Currently truncating to limit the amount of
+        # files downloaded and processed during development.
+        self.dumps = self.dumps[:2]
         for x in self.dumps:
             print(x)
 
@@ -104,7 +110,9 @@ class Corpus:
                                input,
                                '-o',
                                output,
-                               '--lists'])
+                               '--lists',
+                               '--s',
+                               '--filter_disambig_pages'])
 
 
     def chunk(self):
@@ -117,34 +125,60 @@ class Corpus:
             if os.path.exists(output):
                 print(output + " already chunked.")
             else:
-                # TODO: Implement chunking
-                print("TODO: Chunking " + input + " ==> " + output)
-                # run(self.raw, [self.wikiextractor,
-                #                input,
-                #                '-o',
-                #                output,
-                #                '--lists'])
+                print("Chunking " + input + " ==> " + output)
+                run(self.chunks,
+                    ["java",
+                     "-cp",
+                     self.workbench,
+                     "org.bitfunnel.workbench.MakeCorpusFile",
+                     input,
+                     output])
 
 
-    def compress_for_azure(self):
+    def compress(self):
         self.chunk()
-        # TODO: Implement compress_for_azure
-        print("TODO: Compress for Azure")
+        print("Compress")
+        for url, base_name in self.dumps:
+            input = os.path.join(self.chunks, base_name)
+            output = input + ".tar.gz"
+            if os.path.exists(output):
+                print(input + " already compressed.")
+            else:
+                print("Compressing " + input + " ==> " + output)
+                tar = tarfile.open(output, "w:gz")
+
+                for path, dirs, files in os.walk(input):
+                    for filename in files:
+                        filepath = os.path.join(path, filename)
+                        arcname = os.path.relpath(filepath, self.chunks)
+                        print(arcname)
+                        tar.add(filepath, arcname=arcname)
+                tar.close()
+
+    # [os.path.relpath(os.path.join(path, file), os.path.join(root, "chunks", "")) for path, dirs, files in
+    #  os.walk(os.path.join(root, "chunks", "enwiki-20161120-pages-articles1")) for file in files]
 
 
     def upload_to_azure(self):
-        self.compress_for_azure()
+        self.compress()
         # TODO: Implement upload_to_azure
         print("TODO: Upload to Azure")
 
 
 url = "https://dumps.wikimedia.org/enwiki/20161120/"
-root = "/home/mhop/wikipedia"
-wikiextractor = "/home/mhop/git/wikiextractor/WikiExtractor.py"
+#root = "/home/mhop/wikipedia"
+root = "/data"
+#wikiextractor = "/home/mhop/git/wikiextractor/WikiExtractor.py"
+wikiextractor = "/Users/michaelhopcroft/git/wikiextractor"
+workbench = "/Users/michaelhopcroft/git/Workbench"
 
-corpus = Corpus(root, url, wikiextractor)
+
+corpus = Corpus(root, url, wikiextractor, workbench)
 #corpus.initialize()
 #corpus.download()
 #corpus.decompress()
 #corpus.wikiextract()
 corpus.upload_to_azure()
+
+# Install Python 3.5.2
+# pip3.5 install azure-storage
