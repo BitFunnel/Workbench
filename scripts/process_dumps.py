@@ -61,7 +61,7 @@ class Corpus:
                       for x in hrefs]
         # TODO: Stop truncating self.dumps. Currently truncating to limit the amount of
         # files downloaded and processed during development.
-        self.dumps = self.dumps[:2]
+        # self.dumps = self.dumps[:2]
         for x in self.dumps:
             print(x)
 
