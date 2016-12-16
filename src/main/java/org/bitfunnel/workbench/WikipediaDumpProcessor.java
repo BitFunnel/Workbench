@@ -92,10 +92,17 @@ public class WikipediaDumpProcessor {
 
     int documentId = Integer.parseUnsignedInt(matcher.group(1));
     emit(String.format("%016x", documentId));
-    String title = matcher.group(2);
+    String line = matcher.group(2);
 
     try (StreamScope scope = new StreamScope(titleStreamId)) {
-      emit(title);
+        try (TokenStream tokenStream
+                = analyzer.tokenStream("contents", new StringReader(line))) {
+            tokenStream.reset();
+            CharTermAttribute term = tokenStream.addAttribute(CharTermAttribute.class);
+            while (tokenStream.incrementToken()) {
+                emit(term.toString());
+            }
+        }
     }
   }
 
