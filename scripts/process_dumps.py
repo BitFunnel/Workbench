@@ -59,9 +59,6 @@ class Corpus:
         self.dumps = [(urllib.parse.urljoin(self.url, x),
                        re.search("enwiki-\d{8}-pages-articles\d+", x).group(0))
                       for x in hrefs]
-        # TODO: Stop truncating self.dumps. Currently truncating to limit the amount of
-        # files downloaded and processed during development.
-        # self.dumps = self.dumps[:2]
         for x in self.dumps:
             print(x)
 
