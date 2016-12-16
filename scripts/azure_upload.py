@@ -14,7 +14,8 @@ def upload(path, container, account, key):
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f)) and f.endswith('.tar.gz')]
     for file in files:
         blob = os.path.join("chunks", file)
-        print("Uploading " + os.path.join(path, file) + " to " + blob)
+        file = os.path.join(path, file)
+        print("Uploading " + file + " to " + blob)
         block_blob_service.create_blob_from_path(
             container,
             blob,
