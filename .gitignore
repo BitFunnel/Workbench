@@ -16,3 +16,5 @@ dependency-reduced-pom.xml
 
 # Mac
 .DS_Store
+
+scripts/__pycache__

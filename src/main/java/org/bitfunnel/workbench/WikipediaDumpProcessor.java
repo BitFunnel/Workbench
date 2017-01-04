@@ -31,6 +31,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.util.CharArraySet;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -48,7 +49,8 @@ public class WikipediaDumpProcessor {
   static Pattern pattern =
       Pattern.compile("<doc id=\"([^\"]*)\" url=\"[^\"]*\" title=\"([^\"]*)\">");
 
-  static Analyzer analyzer = new StandardAnalyzer();
+  static CharArraySet stopwords = new CharArraySet(0, true);
+  static Analyzer analyzer = new StandardAnalyzer(stopwords);
 
 
   public WikipediaDumpProcessor(InputStream inputStream,
@@ -59,6 +61,7 @@ public class WikipediaDumpProcessor {
 
 
   public void ProcessFile() throws IOException, Exception {
+    System.out.println("Process file.");
     scanner = new Scanner(inputStream);
     ProcessAllDocuments();
   }

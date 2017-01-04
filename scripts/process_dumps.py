@@ -175,6 +175,8 @@ corpus = Corpus(root, url, wikiextractor, workbench)
 #corpus.download()
 #corpus.decompress()
 #corpus.wikiextract()
+
+#corpus.chunk()
 corpus.upload_to_azure()
 
 # Install Python 3.5.2

@@ -68,8 +68,16 @@ public class CorpusTest
             "Some more body text.\n" +
             "</doc>\n";
 
-    byte[] expected =
+    // This version expects stopwords to be filtered out.
+    // Saving in case we go back to filtering stop words.
+    byte[] expectedNoStopWords =
         ("000000000000007b\00000\000one\000\00001\000body\000text\000\000\000" +
+            "00000000000001c8\00000\000two\000\00001\000some\000more\000body\000text\000\000\000" +
+            "\000").getBytes(StandardCharsets.UTF_8);
+
+    // Currently we are configured to keep stop words.
+    byte[] expected =
+        ("000000000000007b\00000\000one\000\00001\000this\000is\000the\000body\000text\000\000\000" +
             "00000000000001c8\00000\000two\000\00001\000some\000more\000body\000text\000\000\000" +
             "\000").getBytes(StandardCharsets.UTF_8);
 
